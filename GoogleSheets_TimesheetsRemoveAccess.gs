@@ -1,5 +1,3 @@
-Google Sheets (ICON Timesheets Remove Access)
-
 function removeGoogleSheetsAccess() {
   // THIS SCRIPT CHANGES ACCESS PRIVILEDGES FOR ALL EMPLOYEE TIMESHEETS FROM EDIT TO VIEW ONLY
   // THIS SCRIPT RUNS EVERY TUESDAY AT 12AM
@@ -36,9 +34,15 @@ function removeGoogleSheetsAccess() {
     // Change the employees access priviledges from editor to viewer
     Logger.log("Changing permissions for employee: " + employee_email)
 
-    // TODO - CHANGE SETTINGS SO EMPLOYEE DOES NOT GET NOTIFIED ABOUT CHANGED PERMISSIONS
+    // ================================================================================== //
+    // *** ADDED 12-12-23 ***
+    // THIS CHANGES PERMISSIONS FROM EDIT TO VIEW AND DOES NOT NOTIFY USER ABOUT CHANGES
+    var fileID = file.getId();
+    Logger.log("File ID: " + fileID);
 
-    file.removeEditor(employee_email)
-    file.addViewer(employee_email)
+    var permissionId = Drive.Permissions.getIdForEmail(employee_email);
+    var resource = Drive.newPermission();
+    resource.role = 'reader';
+    Drive.Permissions.update(resource, fileID, permissionId.id);
   }
 }
