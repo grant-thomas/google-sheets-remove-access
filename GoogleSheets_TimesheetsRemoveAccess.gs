@@ -29,7 +29,7 @@ function removeGoogleSheetsAccess() {
     var name_cell = SpreadsheetApp.openById(file.getId()).getRange("C8").getValue();
 
     // Split the employee name, get only the first name, make it lowercase, concat. domain name (i.e. first@iconstudiobr.com)
-    var employee_email = name_cell.split(" ")[0].toLowerCase() + "@iconstudiobr.com"
+    var employee_email = name_cell.split(" ")[0].toLowerCase() + "@companyname.com"
     
     // Change the employees access priviledges from editor to viewer
     Logger.log("Changing permissions for employee: " + employee_email)
